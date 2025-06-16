@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Prime Number Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column; /* Changed to column to stack elements vertically */
+            justify-content: flex-start; /* Align items from the start of the column */
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px; /* Add some padding for better spacing */
+            box-sizing: border-box; /* Include padding in element's total width and height */
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            margin-bottom: 30px; /* Add margin to separate from the next section */
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+        table td:first-child {
+            width: 100px;
+            font-weight: bold;
+            color: #555;
+        }
+        input[type="number"],
+        textarea {
+            width: calc(100% - 20px);
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        button {
+            display: block;
+            width: 120px;
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Styles for the task selection section */
+        .task-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px; /* Space between tasks */
+            margin-top: 20px;
+            width: 400px; /* Match width with the prime generator for alignment */
+        }
+        .task {
+            display: block;
+            padding: 15px 20px;
+            background-color: #4CAF50; /* Example color */
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.1em;
+            transition: background-color 0.3s ease;
+        }
+        .task:hover {
+            background-color: #45a049;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-top: 40px; /* Margin above the "Select a Task" heading */
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Prime Number Generator</h2>
+        <table>
+            <tr>
+                <td>Start</td>
+                <td><input type="number" id="startNum" value="1"></td>
+            </tr>
+            <tr>
+                <td>End</td>
+                <td><input type="number" id="endNum" value="100"></td>
+            </tr>
+            <tr>
+                <td>Prime Number</td>
+                <td><textarea id="primeNumbers" readonly></textarea></td>
+            </tr>
+        </table>
+        <button onclick="generatePrimes()">Generate</button>
+    </div>
+
+    <script>
+        function isPrime(num) {
+            if (num <= 1) return false;
+            for (let i = 2; i <= Math.sqrt(num); i++) {
+                if (num % i === 0) return false;
+            }
+            return true;
+        }
+
+        function generatePrimes() {
+            const start = parseInt(document.getElementById('startNum').value);
+            const end = parseInt(document.getElementById('endNum').value);
+            const primeNumbersOutput = document.getElementById('primeNumbers');
+            let primes = [];
+
+            if (isNaN(start) || isNaN(end)) {
+                alert("Please enter valid numbers for Start and End.");
+                return;
+            }
+
+            if (start > end) {
+                alert("Start number cannot be greater than End number.");
+                return;
+            }
+
+            for (let i = start; i <= end; i++) {
+                if (isPrime(i)) {
+                    primes.push(i);
+                }
+            }
+            primeNumbersOutput.value = primes.join(', ');
+        }
+        window.onload = generatePrimes;
+    </script>
+
+    <h1>Select a Task</h1>
+    <div class="task-container">
+        <a href="Task1.html" class="task">Task1 : Mobile number validation</a>
+        <a href="Task2.html" class="task">Task2 : Instagram login page</a>
+        <a href="Task3.html" class="task" target="_blank">Task3 : Age calculator</a>
+    </div>
+</body>
+</html>
